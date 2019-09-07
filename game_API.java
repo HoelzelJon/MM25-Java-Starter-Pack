@@ -33,7 +33,10 @@ public class game_API {
 	public Position getPositionAfterMovement(Position init, Direction[] movementSteps){
 		Position p = new Position(init.getX(), init.getY());
 		for(int i = 0; i < movementSteps.length; i++){
-			p = p.getNewPosition(movementSteps[i]);
+			if(game.getMap().inBounds(p.getNewPosition(movementSteps[i]))){
+				p = p.getNewPosition(movementSteps[i]);
+			}
+
 		}
 		return p;
 	}
