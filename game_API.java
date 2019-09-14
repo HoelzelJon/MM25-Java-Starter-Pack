@@ -1,11 +1,13 @@
 //package mech.mania;
 
 //import com.google.gson.Gson;
-
+import java.util.Queue;
+import java.util.ArrayList;
+import java.util.LinkedList;
 public class game_API {
 
-	private Game game;
-	private String playerName;
+	private Game game; //instance of game
+	private String playerName; //playerName
 	private int playerNum; //Set playerNum from JSON
 
 	public game_API(Game g, String playerName){
@@ -26,7 +28,29 @@ public class game_API {
 	}
 
 	public Direction[] pathTo(Position start, Position end, Position[] tilesToAvoid){
-		//Implement shortest path algorithm
+		Queue<Tuple> q = new LinkedList<Tuple>();
+		Tuple<Position, ArrayList<String>> tuple = new Tuple<Position, ArrayList<String>>(start, new ArrayList<String>());
+		boolean[][] visited = new boolean[12][12];
+		for(int i = 0; i < visited.length; i++){
+			for(int j = 0; j < visited[i].length; j++){
+				visited[i][j] = false;
+			}
+		}
+
+		while(q.size() > 0){
+			Tuple<Position, ArrayList<String>> tuple = q.pop();
+			Position position = tuple.getX();
+			ArrayList<String> directions = tuple.getY();
+			if(visited[position.getY()][position.getX()]){
+				continue;
+			}else{
+				visited[position.getY()][posiion.getX()] = true;
+			}
+			if(position.equals(end)){
+				return directions;
+			}
+		}
+
 		return null;
 	}
 
