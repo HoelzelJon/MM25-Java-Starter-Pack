@@ -1,5 +1,9 @@
 package mech.mania.MM25JavaAPI;
 
+/**
+ * Class to store the actions to be executed on the next turn.
+ * Created to be serialized to send to the game engine as a JSON object.
+ */
 public class Turn {
     private int[] priorities;
     private Direction[][] movements;

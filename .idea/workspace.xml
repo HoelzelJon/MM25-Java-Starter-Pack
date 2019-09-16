@@ -3,17 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6bd98156-a8e7-4ba5-9677-40c37aca8a41" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Turn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Turn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/UnitSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/UnitSetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Mm25JavaStarterPackApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Mm25JavaStarterPackApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Strategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Strategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Turn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Turn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Unit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/UnitSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/UnitSetup.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

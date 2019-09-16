@@ -12,13 +12,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
+/**
+ * A class to handle HTTP POST requests
+ */
 @RestController
 public class Server {
 
     private Gson gson = new Gson();
     private HashMap<String, Strategy> games = new HashMap<>();
 
-    // Start a new game
+    /**
+     * Method to handle POST requests to the /game_init endpoint to begin a new game.
+     * @param jsonString A JSON object which contains a player number and game ID.
+     * @return A JSON object encoding the {@link UnitSetup} array returned by the contestant's {@link Strategy}
+     */
     @RequestMapping(value = "/game_init" , method = RequestMethod.POST)
     public @ResponseBody String game_init(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
@@ -29,7 +36,11 @@ public class Server {
         return gson.toJson(unitSetup);
     }
 
-    // Process turn of a current game
+    /**
+     * Method to handle POST requests to the /turn endpoint to execute actions for a turn.
+     * @param jsonString A JSON object which contains the current game state.
+     * @return A JSON object encoding the {@link Turn} returned by the contestant's {@link Strategy}
+     */
     @RequestMapping(value = "/turn" , method = RequestMethod.POST)
     public @ResponseBody String turn(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
@@ -38,7 +49,11 @@ public class Server {
         return gson.toJson(turnResponse);
     }
 
-    // End game
+    /**
+     * Method to handle POST requests to the /game_over endpoint to end a game.
+     * @param jsonString A JSON object which contains a game ID.
+     * @return An empty String.
+     */
     @RequestMapping(value = "/game_over" , method = RequestMethod.POST)
     public @ResponseBody String game_over(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
@@ -47,7 +62,11 @@ public class Server {
         return "";
     }
 
-    /** Helper method to decode URL **/
+    /**
+     * A helper method to decode the json String from its URL encoding.
+     * @param jsonString The URL encoded String with a trailing '='
+     * @return The URL decoded String without a trailing '='
+     */
     private String decode(String jsonString) {
         try {
             jsonString = URLDecoder.decode(jsonString, "UTF-8");
@@ -61,13 +80,13 @@ public class Server {
     }
 }
 
-/** Helper class for game_init end point **/
+/** A helper class for the /game_init end point **/
 class GameInit{
     int playerNum;
     String gameId;
 }
 
-/** Helper class for game_over end point **/
+/** A helper class for the /game_over end point **/
 class GameOver{
     String gameId;
 }

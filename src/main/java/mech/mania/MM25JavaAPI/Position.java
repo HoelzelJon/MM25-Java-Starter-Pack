@@ -3,7 +3,8 @@ package mech.mania.MM25JavaAPI;
 import java.util.Objects;
 
 /**
- * 'Position' class for representing the position of things on the board
+ * Class to store the (x, y) position of game objects.
+ * Created to be deserialized from the game state JSON object.
  */
 public class Position {
     public int x;

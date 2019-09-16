@@ -1,7 +1,8 @@
 package mech.mania.MM25JavaAPI;
 
 /**
- * Stores the state of the game, as well as handling much of the logic during each turn
+ * Class to store the state of the game.
+ * Created to be deserialized from the game state JSON object.
  */
 public class GameState {
     private Board map; // current map

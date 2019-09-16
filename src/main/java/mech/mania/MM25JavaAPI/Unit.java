@@ -1,7 +1,8 @@
 package mech.mania.MM25JavaAPI;
 
 /**
- * Represents a single mech.
+ * Class to store information about a single mech.
+ * Created to be deserialized from the game state JSON object.
  */
 public class Unit {
     private static int ID_COUNTER = 0;

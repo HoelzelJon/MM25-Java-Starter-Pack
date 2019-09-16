@@ -1,7 +1,8 @@
 package mech.mania.MM25JavaAPI;
 
 /**
- * Represents a single square on the game board.
+ * Class to represent a single space on the board.
+ * Created to be deserialized from the game state JSON object.
  */
 public class Tile {
     private long id;

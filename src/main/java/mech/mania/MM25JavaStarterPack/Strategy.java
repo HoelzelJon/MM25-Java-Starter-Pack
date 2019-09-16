@@ -2,16 +2,27 @@ package mech.mania.MM25JavaStarterPack;
 
 import mech.mania.MM25JavaAPI.*;
 
+/**
+ * A class where contestants will implement their strategy for the MechMania25 Hackathon.
+ */
 public class Strategy {
 
     private int playerNum;
     private Unit[] myUnits;
 
+    /**
+     * Class constructor which records the player number (1 or 2).
+     * @param playerNum
+     */
     public Strategy(int playerNum){
         this.playerNum = playerNum;
     }
 
-    // Define initial bot setups
+    /**
+     * Method to set unit initializations. Run at the beginning of a game, after assigning player numbers.
+     * @return An array of {@link UnitSetup} objects which define attack pattern, terrain creation pattern, health, and speed.
+     * @see UnitSetup
+     */
     public UnitSetup[] getSetup(){
         // Default values
         int[][] attackPattern = {
@@ -44,7 +55,14 @@ public class Strategy {
         return unitSetup;
     }
 
-    // Take a turn
+    /**
+     * Method to implement the competitors strategy in the next turn of the game. This is where competitors should be
+     * putting most of their code.
+     * @param gameState An object recording the current state of the game.
+     * @return An object representing the actions to execute this turn. Includes the movement and attack directions
+     * for each unit and the priorities (order) in which to execute them.
+     * @see Turn
+     */
     public Turn doTurn(GameState gameState){
         // Update myUnits
         if(playerNum == 1) {

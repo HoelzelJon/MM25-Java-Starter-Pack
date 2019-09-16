@@ -1,5 +1,9 @@
 package mech.mania.MM25JavaAPI;
 
+/**
+ * Class to store the initial setup of a mech.
+ * Created to be serialized to be sent to the game engine as a JSON object during game initialization.
+ */
 public class UnitSetup {
     private int[][] attackPattern;
     private boolean[][] terrainPattern;
