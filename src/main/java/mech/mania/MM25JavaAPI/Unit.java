@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaStarterPack;
+package mech.mania.MM25JavaAPI;
 
 /**
  * Represents a single mech.
@@ -32,19 +32,19 @@ public class Unit {
         return hp;
     }
 
-    int getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    Position getPos() {
+    public Position getPos() {
         return pos;
     }
 
-    void setPos(Position pos) {
+    public void setPos(Position pos) {
         this.pos = pos;
     }
 
-    boolean isAlive() {
+    public boolean isAlive() {
         return isAlive;
     }
 }

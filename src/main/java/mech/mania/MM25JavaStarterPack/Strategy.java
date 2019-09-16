@@ -1,5 +1,7 @@
 package mech.mania.MM25JavaStarterPack;
 
+import mech.mania.MM25JavaAPI.*;
+
 public class Strategy {
 
     private int playerNum;

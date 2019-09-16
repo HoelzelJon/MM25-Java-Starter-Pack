@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaStarterPack;
+package mech.mania.MM25JavaAPI;
 
 public class Turn {
     private int[] priorities;

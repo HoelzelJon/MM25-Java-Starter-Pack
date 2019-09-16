@@ -1,7 +1,10 @@
 package mech.mania.MM25JavaStarterPack;
 
+import mech.mania.MM25JavaAPI.*;
+
 import java.util.HashMap;
 import java.net.URLDecoder;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

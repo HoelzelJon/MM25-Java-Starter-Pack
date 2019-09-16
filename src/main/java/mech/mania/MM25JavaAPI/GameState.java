@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaStarterPack;
+package mech.mania.MM25JavaAPI;
 
 /**
  * Stores the state of the game, as well as handling much of the logic during each turn

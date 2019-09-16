@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Mm25JavaStarterPackApplication {
 
 	public static void main(String[] args) {
+		// Runs server
 		SpringApplication.run(Mm25JavaStarterPackApplication.class, args);
 	}
 
