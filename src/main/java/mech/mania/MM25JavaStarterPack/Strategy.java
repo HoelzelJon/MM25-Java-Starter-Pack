@@ -43,7 +43,7 @@ public class Strategy {
                 {false, false, false, false, false, false, false},
                 {false, false, false, false, false, false, false}
         };
-        int health = 1;
+        int health = 4;
         int speed = 1;
 
         // Define units
@@ -78,7 +78,7 @@ public class Strategy {
         for(int u = 0; u < myUnits.length; u++) {
             Direction[] m = new Direction[myUnits[u].getSpeed()];
             for (int s = 0; s < m.length; s++) {
-                m[s] = Direction.STAY;
+                m[s] = Direction.DOWN;
             }
             movements[u] = m;
         }
