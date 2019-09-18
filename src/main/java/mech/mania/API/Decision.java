@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaAPI;
+package mech.mania.API;
 
 /**
  * Class to store the actions to be executed on the next turn by a single unit.

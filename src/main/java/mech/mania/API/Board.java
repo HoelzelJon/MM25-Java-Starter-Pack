@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaAPI;
+package mech.mania.API;
 
 /**
  * Class to hold the the 2D array of {@link Tile} objects.

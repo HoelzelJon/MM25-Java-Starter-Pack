@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaAPI;
+package mech.mania.API;
 
 import java.util.Objects;
 
