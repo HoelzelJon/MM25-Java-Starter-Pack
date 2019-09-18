@@ -9,12 +9,14 @@ public class UnitSetup {
     private boolean[][] terrainPattern;
     private int health;
     private int speed;
+    private int unitId;
 
-    public UnitSetup(int[][] ap, boolean[][] tp, int h, int s){
+    public UnitSetup(int[][] ap, boolean[][] tp, int h, int s, int id){
         attackPattern = ap;
         terrainPattern = tp;
         health = h;
         speed = s;
+        unitId = id;
     }
 
     public boolean[][] getTerrainPattern() {

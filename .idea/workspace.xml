@@ -3,15 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6bd98156-a8e7-4ba5-9677-40c37aca8a41" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Direction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Turn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Turn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Turn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Decision.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/Unit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/UnitSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaAPI/UnitSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Mm25JavaStarterPackApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Mm25JavaStarterPackApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Strategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mech/mania/MM25JavaStarterPack/Strategy.java" afterDir="false" />
     </list>
@@ -28,11 +23,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>getPositionAFterMovement</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -42,12 +32,6 @@
         <option name="importAutomatically" value="true" />
       </MavenImportingSettings>
     </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="85" />
-    <option name="y" value="75" />
-    <option name="width" value="1750" />
-    <option name="height" value="980" />
   </component>
   <component name="ProjectId" id="1QvwqFXQS4c7NBxKHKLKlaJfw2E" />
   <component name="PropertiesComponent">
@@ -79,8 +63,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.MM25JavaStarterPackApplication  - Bot 2">
+    <configuration name="MM25JavaStarterPackApplication  - Bot 2" type="Application" factoryName="Application">
+      <envs>
+        <env name="PORT" value="8080" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="mech.mania.MM25JavaStarterPack.Mm25JavaStarterPackApplication" />
+      <module name="MM25-Java-Starter-Pack" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Mm25JavaStarterPackApplication - Bot 1" type="Application" factoryName="Application" temporary="true">
+      <envs>
+        <env name="PORT" value="5000" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="mech.mania.MM25JavaStarterPack.Mm25JavaStarterPackApplication" />
       <module name="MM25-Java-Starter-Pack" />
       <extension name="coverage">
@@ -151,9 +148,13 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.MM25JavaStarterPackApplication  - Bot 2" />
+      <item itemvalue="Application.Mm25JavaStarterPackApplication - Bot 1" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Mm25JavaStarterPackApplication - Bot 1" />
       </list>
     </recent_temporary>
   </component>
@@ -175,7 +176,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

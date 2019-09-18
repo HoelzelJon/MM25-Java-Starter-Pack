@@ -2,13 +2,16 @@ package mech.mania.MM25JavaStarterPack;
 
 import mech.mania.MM25JavaAPI.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class where contestants will implement their strategy for the MechMania25 Hackathon.
  */
 public class Strategy {
 
     private int playerNum;
-    private Unit[] myUnits;
+    private List<Unit> myUnits = new ArrayList<>();
 
     /**
      * Class constructor which records the player number (1 or 2).
@@ -46,10 +49,21 @@ public class Strategy {
         int health = 4;
         int speed = 1;
 
-        // Define units
-        UnitSetup unit1 = new UnitSetup(attackPattern, terrainPattern, health, speed);
-        UnitSetup unit2 = new UnitSetup(attackPattern, terrainPattern, health, speed);
-        UnitSetup unit3 = new UnitSetup(attackPattern, terrainPattern, health, speed);
+        UnitSetup unit1;
+        UnitSetup unit2;
+        UnitSetup unit3;
+        if(playerNum == 1) {
+            // Define units if player 1
+            unit1 = new UnitSetup(attackPattern, terrainPattern, health, speed, 1);
+            unit2 = new UnitSetup(attackPattern, terrainPattern, health, speed, 2);
+            unit3 = new UnitSetup(attackPattern, terrainPattern, health, speed, 3);
+        }
+        else{
+            // Define units if player 2
+            unit1 = new UnitSetup(attackPattern, terrainPattern, health, speed, 4);
+            unit2 = new UnitSetup(attackPattern, terrainPattern, health, speed, 5);
+            unit3 = new UnitSetup(attackPattern, terrainPattern, health, speed, 6);
+        }
 
         UnitSetup[] unitSetup = {unit1, unit2, unit3};
         return unitSetup;
@@ -61,29 +75,24 @@ public class Strategy {
      * @param gameState An object recording the current state of the game.
      * @return An object representing the actions to execute this turn. Includes the movement and attack directions
      * for each unit and the priorities (order) in which to execute them.
-     * @see Turn
+     * @see Decision
      */
-    public Turn doTurn(GameState gameState){
+    public Decision[] doTurn(GameState gameState){
         // Update myUnits
-        if(playerNum == 1) {
-            myUnits = gameState.getP1Units();
-        }
-        else if(playerNum == 2){
-            myUnits = gameState.getP2Units();
-        }
+        myUnits = gameState.getPlayerUnits(playerNum);
 
         // Default values
-        int[] priorities = {1, 2, 3};
-        Direction[][] movements = new Direction[3][];
-        for(int u = 0; u < myUnits.length; u++) {
-            Direction[] m = new Direction[myUnits[u].getSpeed()];
-            for (int s = 0; s < m.length; s++) {
-                m[s] = Direction.DOWN;
+        Decision[] turnResponse = new Decision[myUnits.size()];
+        for(int u = 0; u < myUnits.size(); u++) {
+            int priority = u + 1;
+            Direction[] movementSteps = new Direction[myUnits.get(u).getSpeed()];
+            for (int s = 0; s < movementSteps.length; s++) {
+                movementSteps[s] = Direction.DOWN;
             }
-            movements[u] = m;
+            Direction attackDirection = Direction.DOWN;
+            turnResponse[u] = new Decision(priority, movementSteps, attackDirection, myUnits.get(u).getId());
         }
-        Direction[] attacks = {Direction.STAY, Direction.STAY, Direction.STAY};
 
-        return new Turn(priorities, movements, attacks);
+        return turnResponse;
     }
 }
