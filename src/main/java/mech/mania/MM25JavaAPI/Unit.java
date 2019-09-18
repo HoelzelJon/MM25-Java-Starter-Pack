@@ -50,16 +50,16 @@ public class Unit {
         return isAlive;
     }
 
-    public boolean[][] getTerrainPattern() {
-        return terrain;
+    public int getPlayerNum() {
+        return playerNum;
     }
 
-    public int[][] getAttackPattern() {
+    public int[][] getAttack() {
         return attack;
     }
 
-    public int getPlayerNum() {
-        return playerNum;
+    public boolean[][] getTerrain() {
+        return terrain;
     }
 }
 
