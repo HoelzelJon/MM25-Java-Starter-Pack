@@ -14,6 +14,7 @@ public class Unit {
     private boolean[][] terrain;
     private boolean isAlive;
     private int id;
+    private int playerNum;
 
     Unit(Position setPosition, UnitSetup setup) {
         id = ID_COUNTER++;
@@ -47,6 +48,18 @@ public class Unit {
 
     public boolean isAlive() {
         return isAlive;
+    }
+
+    public int getPlayerNum() {
+        return playerNum;
+    }
+
+    public int[][] getAttack() {
+        return attack;
+    }
+
+    public boolean[][] getTerrain() {
+        return terrain;
     }
 }
 

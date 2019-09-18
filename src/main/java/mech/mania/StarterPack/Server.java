@@ -39,13 +39,14 @@ public class Server {
     /**
      * Method to handle POST requests to the /turn endpoint to execute actions for a turn.
      * @param jsonString A JSON object which contains the current game state.
-     * @return A JSON object encoding the {@link Turn} returned by the contestant's {@link Strategy}
+     * @return A JSON object encoding the {@link Decision} array returned by the contestant's {@link Strategy}
      */
     @RequestMapping(value = "/turn" , method = RequestMethod.POST)
     public @ResponseBody String turn(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
         GameState gameState = gson.fromJson(jsonString, GameState.class);
-        Turn turnResponse = games.get(gameState.getGameId()).doTurn(gameState);
+        Decision[] turnResponse = games.get(gameState.getGameId()).doTurn(gameState);
+        System.out.println("Turn response: " + gson.toJson(turnResponse));
         return gson.toJson(turnResponse);
     }
 
