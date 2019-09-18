@@ -55,7 +55,7 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<finalName>GameEngine</finalName>
+					<finalName>Bot.jar</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>
