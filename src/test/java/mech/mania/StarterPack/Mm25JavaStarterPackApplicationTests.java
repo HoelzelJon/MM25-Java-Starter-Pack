@@ -1,4 +1,4 @@
-package mech.mania.MM25JavaStarterPack;
+package mech.mania.StarterPack;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

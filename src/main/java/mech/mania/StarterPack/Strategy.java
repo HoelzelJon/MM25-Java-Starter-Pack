@@ -1,6 +1,6 @@
-package mech.mania.MM25JavaStarterPack;
+package mech.mania.StarterPack;
 
-import mech.mania.MM25JavaAPI.*;
+import mech.mania.API.*;
 
 /**
  * A class where contestants will implement their strategy for the MechMania25 Hackathon.
