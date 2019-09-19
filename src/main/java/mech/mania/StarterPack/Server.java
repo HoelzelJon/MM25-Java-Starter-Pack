@@ -64,6 +64,15 @@ public class Server {
     }
 
     /**
+     * Method to handle POST requests to the /health endpoint to check that the server is running correctly.
+     * @return "200"
+     */
+    @RequestMapping(value = "/health" , method = RequestMethod.GET)
+    public @ResponseBody String health() {
+        return "200";
+    }
+
+    /**
      * A helper method to decode the json String from its URL encoding.
      * @param jsonString The URL encoded String with a trailing '='
      * @return The URL decoded String without a trailing '='
