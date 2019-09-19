@@ -1,0 +1,4 @@
+{
+    "build": "echo \"Make sure you built the .jar before running any mm command\"",
+    "run": "java -jar target/Bot.jar"
+}
