@@ -24,8 +24,9 @@ public class Strategy {
     }
 
     /**
-     * This constructor is called if/when this server received information
-     * @param state
+     * This constructor is called if/when the server restarts in the middle of a game
+     * @param state the current state of the game
+     * @see GameState
      */
     public Strategy(GameState state) {
         // initialize variables here
