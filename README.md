@@ -5,17 +5,11 @@ Here's all the code you need to get started with making a bot for MechMania in J
 * Pre-Setup -- install Node and the `mm` command line tools
 * Setup -- Clone this repository and start running your bot!
 
-# Windows Pre-Setup
+# Pre-Setup
 
 1. First, install Node. To do this, go [here](https://nodejs.org/en/download/) and download the Windows Installer.
 
-3. Run `npm install -g mechmania`.  This gets the `mm` command line tools, which are used to test and submit bots for the tournament.
-
-# Mac Pre-Setup
-
-1. First, install Node. To do this, go [here](https://nodejs.org/en/download/) and download the macOS Installer.
-
-3. Run `npm install -g mechmania`.  This gets the `mm` command line tools, which are used to test and submit bots for the tournament.
+2. Run `npm install -g mechmania`.  This gets the `mm` command line tools, which are used to test and submit bots for the tournament.
 
 # Setup
 
@@ -23,9 +17,11 @@ Here's all the code you need to get started with making a bot for MechMania in J
 2. Modify the script at `Strategy.java`.
     * Write your code in the `doTurn` method.
     * You may also add other files or dependencies. If you have any questions about this, we're here to help!
-3. Run `mm play .`
+3. Run `mvn clean install` to build the file `target/Bot.jar`. This step should be completed whenever you want to run any `mm` commands with a new strategy.
+4. Run `mm play .`
     * This will build the bot in the given directory (`.`) and then starts a game in which your bot fights against itself.
-4. To run two different bots against each other, run `mm play bot1_directory bot2_directory`.
+5. To run two different bots against each other, run `mm play bot1_directory bot2_directory`.
+6. To submit your bot, run `mm push .`
 
 Use `mm help` for more information!
 
