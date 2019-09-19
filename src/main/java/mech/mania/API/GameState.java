@@ -22,6 +22,7 @@ public class GameState {
             1, 2, 4, 6, 9, 12, 16, 20, 25
     };
 
+    private int playerNum;
     private Tile[][] tiles; // current map
     private List<Unit> units;
     private String gameId;
@@ -397,6 +398,10 @@ public class GameState {
 
     public int getTurnsTaken() {
         return turnsTaken;
+    }
+
+    public int getPlayerNum() {
+        return playerNum;
     }
 
     public String getGameId() {

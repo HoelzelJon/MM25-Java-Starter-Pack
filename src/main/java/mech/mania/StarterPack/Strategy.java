@@ -9,24 +9,12 @@ import java.util.List;
  * A class where contestants will implement their strategy for the MechMania25 Hackathon.
  */
 public class Strategy {
-
-    private int playerNum;
-    private List<Unit> myUnits = new ArrayList<>();
-
-    /**
-     * Class constructor which records the player number (1 or 2).
-     * @param playerNum The player number this {@link Strategy} represents (1 or 2).
-     */
-    public Strategy(int playerNum){
-        this.playerNum = playerNum;
-    }
-
     /**
      * Method to set unit initializations. Run at the beginning of a game, after assigning player numbers.
      * @return An array of {@link UnitSetup} objects which define attack pattern, terrain creation pattern, health, and speed.
      * @see UnitSetup
      */
-    public UnitSetup[] getSetup(){
+    public UnitSetup[] getSetup(int playerNum){
         // Default values
         int[][] attackPattern = {
                 {0, 0, 0, 0, 0, 0, 0},
@@ -78,8 +66,8 @@ public class Strategy {
      * @see Decision
      */
     public Decision[] doTurn(GameState gameState){
-        // Update myUnits
-        myUnits = gameState.getPlayerUnits(playerNum);
+        int playerNum = gameState.getPlayerNum();
+        List<Unit> myUnits = gameState.getPlayerUnits(playerNum);
 
         // Default values
         Decision[] turnResponse = new Decision[myUnits.size()];

@@ -30,9 +30,9 @@ public class Server {
     public @ResponseBody String game_init(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
         GameInit gameInit = gson.fromJson(jsonString, GameInit.class);
-        Strategy newStrategy = new Strategy(gameInit.playerNum);
+        Strategy newStrategy = new Strategy();
         games.put(gameInit.gameId, newStrategy);
-        UnitSetup[] unitSetup = newStrategy.getSetup();
+        UnitSetup[] unitSetup = newStrategy.getSetup(gameInit.playerNum);
         return gson.toJson(unitSetup);
     }
 
