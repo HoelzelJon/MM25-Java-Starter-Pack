@@ -130,7 +130,7 @@ public class GameState {
      * @param dir The {@link Direction} the attack would be fired in.
      * @return A list of {@link Pair}s of (Position, Integer) indicating how much damage would be done at
      * certain locations if a unit with {@code attackPattern} were to attack in {@link Direction} {@code dir}.
-     * from position {@unit position}. Positions returned are absolute, not relative to {@code unitPosition}.
+     * from position {@code unitPosition}. Positions returned are absolute, not relative to {@code unitPosition}.
      * Returns null if {@code attackPattern} is invalid.
      */
     public List<Pair<Position, Integer>> getPositionsOfAttackPattern(Position unitPosition, int[][] attackPattern, Direction dir){
@@ -234,7 +234,7 @@ public class GameState {
     /**
      * Helper method to indicate if an {@link Decision} object is valid.
      * @param decision The {@link Decision} to evaluate.
-     * @param unitId The unitId of the {@link Unit} for which this {@lin Decision} should be evaluated.
+     * @param unitId The unitId of the {@link Unit} for which this {@link Decision} should be evaluated.
      * @return A boolean representing the validity of the {@link Decision}.
      */
     public boolean isDecisionValid(Decision decision, int unitId){

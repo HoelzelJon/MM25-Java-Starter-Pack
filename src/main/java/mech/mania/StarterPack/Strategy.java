@@ -15,7 +15,7 @@ public class Strategy {
 
     /**
      * Class constructor which records the player number (1 or 2).
-     * @param playerNum
+     * @param playerNum The player number this {@link Strategy} represents (1 or 2).
      */
     public Strategy(int playerNum){
         this.playerNum = playerNum;
