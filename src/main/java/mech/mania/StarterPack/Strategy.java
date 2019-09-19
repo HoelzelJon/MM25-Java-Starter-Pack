@@ -9,16 +9,27 @@ import java.util.List;
  * A class where contestants will implement their strategy for the MechMania25 Hackathon.
  */
 public class Strategy {
-
-    private int playerNum;
-    private List<Unit> myUnits = new ArrayList<>();
+    // define any private variables here
+    // NOTE: Since the server may be restarted or moved mid-game, you MUST initialize any variables you put here in each of the below constructors.
+    //       If the server is restarted or moved, these variables will not have the values you previously set them with.
+    //       If you need truly persistent data, you could set up a database and communicate with that from your script
 
     /**
-     * Class constructor which records the player number (1 or 2).
-     * @param playerNum The player number this {@link Strategy} represents (1 or 2).
+     * This constructor is called when a game is first started.
+     * @param init The initial state of this new game
+     * @see GameInit
      */
-    public Strategy(int playerNum){
-        this.playerNum = playerNum;
+    public Strategy(GameInit init) {
+        // initialize variables here
+    }
+
+    /**
+     * This constructor is called if/when the server restarts in the middle of a game
+     * @param state the current state of the game
+     * @see GameState
+     */
+    public Strategy(GameState state) {
+        // initialize variables here
     }
 
     /**
@@ -26,7 +37,7 @@ public class Strategy {
      * @return An array of {@link UnitSetup} objects which define attack pattern, terrain creation pattern, health, and speed.
      * @see UnitSetup
      */
-    public UnitSetup[] getSetup(){
+    public UnitSetup[] getSetup(int playerNum){
         // Default values
         int[][] attackPattern = {
                 {0, 0, 0, 0, 0, 0, 0},
@@ -78,8 +89,8 @@ public class Strategy {
      * @see Decision
      */
     public Decision[] doTurn(GameState gameState){
-        // Update myUnits
-        myUnits = gameState.getPlayerUnits(playerNum);
+        int playerNum = gameState.getPlayerNum();
+        List<Unit> myUnits = gameState.getPlayerUnits(playerNum);
 
         // Default values
         Decision[] turnResponse = new Decision[myUnits.size()];

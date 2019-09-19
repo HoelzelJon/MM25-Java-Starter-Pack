@@ -30,9 +30,9 @@ public class Server {
     public @ResponseBody String game_init(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
         GameInit gameInit = gson.fromJson(jsonString, GameInit.class);
-        Strategy newStrategy = new Strategy(gameInit.playerNum);
+        Strategy newStrategy = new Strategy(gameInit);
         games.put(gameInit.gameId, newStrategy);
-        UnitSetup[] unitSetup = newStrategy.getSetup();
+        UnitSetup[] unitSetup = newStrategy.getSetup(gameInit.playerNum);
         return gson.toJson(unitSetup);
     }
 
@@ -45,7 +45,7 @@ public class Server {
     public @ResponseBody String turn(@RequestBody String jsonString) {
         jsonString = decode(jsonString);
         GameState gameState = gson.fromJson(jsonString, GameState.class);
-        Decision[] turnResponse = games.get(gameState.getGameId()).doTurn(gameState);
+        Decision[] turnResponse = games.computeIfAbsent(gameState.getGameId(), gameId -> new Strategy(gameState)).doTurn(gameState);
         System.out.println("Turn response: " + gson.toJson(turnResponse));
         return gson.toJson(turnResponse);
     }
