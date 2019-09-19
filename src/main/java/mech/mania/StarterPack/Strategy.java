@@ -9,6 +9,28 @@ import java.util.List;
  * A class where contestants will implement their strategy for the MechMania25 Hackathon.
  */
 public class Strategy {
+    // define any private variables here
+    // NOTE: Since the server may be restarted or moved mid-game, you MUST initialize any variables you put here in each of the below constructors.
+    //       If the server is restarted or moved, these variables will not have the values you previously set them with.
+    //       If you need truly persistent data, you could set up a database and communicate with that from your script
+
+    /**
+     * This constructor is called when a game is first started.
+     * @param init The initial state of this new game
+     * @see GameInit
+     */
+    public Strategy(GameInit init) {
+        // initialize variables here
+    }
+
+    /**
+     * This constructor is called if/when this server received information
+     * @param state
+     */
+    public Strategy(GameState state) {
+        // initialize variables here
+    }
+
     /**
      * Method to set unit initializations. Run at the beginning of a game, after assigning player numbers.
      * @return An array of {@link UnitSetup} objects which define attack pattern, terrain creation pattern, health, and speed.
