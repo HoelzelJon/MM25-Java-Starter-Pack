@@ -1,13 +1,27 @@
 package mech.mania.API;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class to store the state of the game.
  * Created to be deserialized from the game state JSON object.
  */
 public class GameState {
+    public static final int ATTACK_PATTERN_SIZE = 7;
+    public static final int BASE_HEALTH = 1;
+    public static final int BASE_SPEED = 1;
+    static final int MAX_POINTS = 24;
+    static final int TERRAIN_COST = 2;
+    private static final int[] DAMAGE_SCALING = {
+            1, 3, 6, 10, 15, 21, 27
+    };
+    private static final int[] SPEED_SCALING = {
+            1, 2, 4, 6, 9, 12, 16, 20, 25
+    };
+    private static final int[] HEALTH_SCALING = {
+            1, 2, 4, 6, 9, 12, 16, 20, 25
+    };
+
     private Tile[][] tiles; // current map
     private List<Unit> units;
     private String gameId;
@@ -18,13 +32,68 @@ public class GameState {
 
     /**
      * Helper method to return shortest path from {@code start} to {@code end}
-     * avoiding locations in {@code tilesToAvoid}.
+     * avoiding locations in {@code tilesToAvoid}. Returns null if impossible.
      * @param start The {@link Position} to start from.
      * @param end The desired end {@link Position}.
      * @param tilesToAvoid An array of {@link Position}s to avoid in the path.
      * @return An array of {@link Direction} objects indicating the path from start to end.
      */
     public Direction[] pathTo(Position start, Position end, Position[] tilesToAvoid){
+        Queue<Pair<Position, Direction[]>> q = new LinkedList<>();
+        Direction[] init_directions = new Direction[0];
+        q.add(new Pair<>(start, init_directions));
+        Boolean[][] visited = new Boolean[tiles.length][tiles[0].length];
+        for(int i = 0; i < visited.length; i++){
+            for(int j = 0; j < visited[i].length; j++){
+                visited[i][j] = false;
+            }
+        }
+        while(!q.isEmpty()){
+            Pair<Position, Direction[]> pair = q.remove();
+            Position position = pair.getFirst();
+            Direction[] directions = pair.getSecond();
+            if(visited[position.x][position.y]){
+                continue;
+            }
+            else{
+                visited[position.x][position.y] = true;
+            }
+            if(position.equals(end)){
+                return directions;
+            }
+            Position left = new Position(position.x - 1, position.y);
+            if(!((left.x < 0) || (shouldAvoid(left, tilesToAvoid)) ||
+                    getTiles()[left.x][left.y].getType() != Tile.Type.BLANK)){
+                Direction[] left_directions = new Direction[directions.length + 1];
+                System.arraycopy(directions, 0, left_directions, 0, directions.length);
+                left_directions[left_directions.length - 1] = Direction.LEFT;
+                q.add(new Pair<>(left, left_directions));
+            }
+            Position right = new Position(position.x + 1, position.y);
+            if(!((right.x >= getTiles().length) || (shouldAvoid(right, tilesToAvoid)) ||
+                    getTiles()[right.x][right.y].getType() != Tile.Type.BLANK)){
+                Direction[] right_directions = new Direction[directions.length + 1];
+                System.arraycopy(directions, 0, right_directions, 0, directions.length);
+                right_directions[right_directions.length - 1] = Direction.RIGHT;
+                q.add(new Pair<>(right, right_directions));
+            }
+            Position down = new Position(position.x, position.y - 1);
+            if(!((down.y >= getTiles()[0].length) || (shouldAvoid(down, tilesToAvoid)) ||
+                    getTiles()[down.x][down.y].getType() != Tile.Type.BLANK)){
+                Direction[] down_directions = new Direction[directions.length + 1];
+                System.arraycopy(directions, 0, down_directions, 0, directions.length);
+                down_directions[down_directions.length - 1] = Direction.DOWN;
+                q.add(new Pair<>(down, down_directions));
+            }
+            Position up = new Position(position.x - 1, position.y);
+            if(!((up.y < 0) || (shouldAvoid(up, tilesToAvoid)) ||
+                    getTiles()[up.x][up.y].getType() != Tile.Type.BLANK)){
+                Direction[] up_directions = new Direction[directions.length + 1];
+                System.arraycopy(directions, 0, up_directions, 0, directions.length);
+                up_directions[up_directions.length - 1] = Direction.UP;
+                q.add(new Pair<>(up, up_directions));
+            }
+        }
         return null;
     }
 
@@ -39,16 +108,85 @@ public class GameState {
     }
 
     /**
+     * Helper method for {@link GameState#pathTo(Position, Position, Position[])} to determine if
+     * a {@link Position} is in the given array of {@link Position}s to avoid.
+     * @param position {@link Position} to evaluate.
+     * @param toAvoid Array of {@link Position}s to avoid.
+     * @return True if {@code position} is also inside of {@code toAvoid}, false otherwise.
+     */
+    private boolean shouldAvoid(Position position, Position[] toAvoid){
+        for(Position avoid: toAvoid){
+            if(position.equals(avoid)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Helper method to return what damage would be done at what locations for a hypothetical attack.
-     * @param unitPosition The position from which the attack would be fired.
+     * @param unitPosition The {@link Position} from which the attack would be fired.
      * @param attackPattern The attack pattern with which the attack would be fired.
-     * @param dir The direction the attack would be fired in.
+     * @param dir The {@link Direction} the attack would be fired in.
      * @return A list of {@link Pair}s of (Position, Integer) indicating how much damage would be done at
-     * certain locations if a unit with {@code attackPattern} were to attack in direction {@code dir}.
+     * certain locations if a unit with {@code attackPattern} were to attack in {@link Direction} {@code dir}.
      * from position {@unit position}. Positions returned are absolute, not relative to {@code unitPosition}.
+     * Returns null if {@code attackPattern} is invalid.
      */
     public List<Pair<Position, Integer>> getPositionsOfAttackPattern(Position unitPosition, int[][] attackPattern, Direction dir){
-        return null; // TODO
+        if(!isAttackPatternValid(attackPattern)){
+            return null;
+        }
+        List<Pair<Position, Integer>> positionsOfAttackPattern = new ArrayList<Pair<Position, Integer>>();
+
+        // Rotate attack pattern based on direction
+        int width = attackPattern.length;
+        int height = attackPattern[0].length;
+        int[][] newAttackPattern = new int[height][width];
+        if (dir == Direction.LEFT) {
+            for (int y = 0; y < newAttackPattern[0].length; y++) {
+                for (int x = 0; x < newAttackPattern.length; x++) {
+                    newAttackPattern[x][y] = attackPattern[y][width - x - 1];
+                }
+            }
+        } else if (dir == Direction.DOWN) {
+            for (int y = 0; y < newAttackPattern[0].length; y++) {
+                for (int x = 0; x < newAttackPattern.length; x++) {
+                    newAttackPattern[x][y] = attackPattern[width - x - 1][height - y - 1];
+                }
+            }
+        } else if (dir == Direction.RIGHT) {
+            for (int y = 0; y < newAttackPattern[0].length; y++) {
+                for (int x = 0; x < newAttackPattern.length; x++) {
+                    newAttackPattern[x][y] = attackPattern[height - y - 1][x];
+                }
+            }
+        } else if (dir == Direction.UP) {
+            for (int y = 0; y < newAttackPattern[0].length; y++) {
+                for (int x = 0; x < newAttackPattern.length; x++) {
+                    newAttackPattern[x][y] = attackPattern[y][x];
+                }
+            }
+        } else { // direction = STAY
+            for (int y = 0; y < newAttackPattern[0].length; y++) {
+                for (int x = 0; x < newAttackPattern.length; x++) {
+                    newAttackPattern[x][y] = 0;
+                }
+            }
+        }
+
+        int x0 = unitPosition.x - (ATTACK_PATTERN_SIZE / 2); // x-coordinate of where attack[0][0] will go
+        int y0 = unitPosition.y - (ATTACK_PATTERN_SIZE / 2); // y-coordinate of where attack[0][0] will go
+        for(int x = 0; x < attackPattern.length; x++){
+            for(int y = 0; y < attackPattern[x].length; y++){
+                if(newAttackPattern[x][y] > 0){
+                    Position pos = new Position(x0 + x, y0 + y);
+                    Pair<Position, Integer> toAdd = new Pair<>(pos, newAttackPattern[x][y]);
+                    positionsOfAttackPattern.add(toAdd);
+                }
+            }
+        }
+        return positionsOfAttackPattern;
     }
 
     /**
@@ -72,25 +210,160 @@ public class GameState {
      * and moving according to {@code movementSteps} irrespective of the current game's map.
      */
     public Position getPositionAfterMovement(Position start, Direction[] movementSteps){
-        return null; // TODO
+        Position positionAfterMovement = new Position(start.x, start.y);
+        for(Direction d: movementSteps){
+            if(d == Direction.UP){
+                positionAfterMovement.y++;
+            }
+            else if(d == Direction.DOWN){
+                positionAfterMovement.y--;
+            }
+            if(d == Direction.LEFT){
+                positionAfterMovement.x--;
+            }
+            if(d == Direction.RIGHT){
+                positionAfterMovement.x++;
+            }
+            else{
+                // d == STAY. Do nothing.
+            }
+        }
+        return positionAfterMovement;
     }
 
     /**
      * Helper method to indicate if an {@link Decision} object is valid.
-     * @param d The {@link Decision} to evaluate.
-     * @return A boolean representing the validity of the Decision.
+     * @param decision The {@link Decision} to evaluate.
+     * @param unitId The unitId of the {@link Unit} for which this {@lin Decision} should be evaluated.
+     * @return A boolean representing the validity of the {@link Decision}.
      */
-    public boolean isDecisionValid(Decision d){
-        return false; // TODO
+    public boolean isDecisionValid(Decision decision, int unitId){
+        if (decision == null ||
+                decision.getMovement() == null ||
+                decision.getAttack() == null ||
+                Arrays.stream(decision.getMovement()).anyMatch(Objects::isNull) ||
+                decision.getMovement().length != units.get(unitId).getSpeed()) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * Helper method to indicate if a {@link UnitSetup} object is valid.
-     * @param s The {@link UnitSetup} to evaluate.
+     * @param setup The {@link UnitSetup} to evaluate.
      * @return A boolean representing the validity of the Decision.
      */
-    public boolean isUnitSetupValid(UnitSetup s){
-        return false; // TODO
+    public boolean isUnitSetupValid(UnitSetup setup){
+        int[][] attackPattern;
+        boolean[][] terrainPattern;
+        int health;
+        int speed;
+        try {
+            attackPattern = setup.getAttackPattern();
+            terrainPattern = setup.getTerrainPattern();
+            health = setup.getHealth();
+            speed = setup.getSpeed();
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
+
+        if (attackPattern == null
+                || terrainPattern == null
+                || health < BASE_HEALTH
+                || speed < BASE_SPEED
+                || attackPattern.length != ATTACK_PATTERN_SIZE
+                || terrainPattern.length != ATTACK_PATTERN_SIZE) {
+            return false;
+        }
+
+        for (int x = 0; x < ATTACK_PATTERN_SIZE; x++) {
+            if (attackPattern[x].length != ATTACK_PATTERN_SIZE || terrainPattern[x].length != ATTACK_PATTERN_SIZE) {
+                return false;
+            }
+
+            for (int y = 0; y < ATTACK_PATTERN_SIZE; y ++) {
+                if ((x == 3 && y == 3) || Math.abs(x-3) + Math.abs(y-3) > 3) {
+                    // this position should not have any attack or terrain creation set
+                    if (attackPattern[x][y] > 0 || terrainPattern[x][y]) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        int sum = 0;
+        for (int[] row : attackPattern) {
+            for (int cell : row) {
+                if (cell < 0 || cell >= DAMAGE_SCALING.length) {
+                    return false;
+                }  else if (cell > 1) {
+                    sum += DAMAGE_SCALING[cell - 1];
+                }
+            }
+        }
+
+        for (boolean[] row : terrainPattern) {
+            for (boolean creatingTerrain : row) {
+                if (creatingTerrain) {
+                    sum += TERRAIN_COST;
+                }
+            }
+        }
+
+        if (health >= HEALTH_SCALING.length || speed >= SPEED_SCALING.length) {
+            return false;
+        } else if (HEALTH_SCALING[health - 1] + SPEED_SCALING[speed - 1] + sum > MAX_POINTS) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Helper method to indicate if an {@code attackPattern} is valid.
+     * @param attackPattern 2D array of integers representing an attack pattern.
+     * @return True if {@code attackPattern} is valid, false otherwise.
+     */
+    public boolean isAttackPatternValid(int[][] attackPattern){
+        for (int x = 0; x < ATTACK_PATTERN_SIZE; x++) {
+            if (attackPattern[x].length != ATTACK_PATTERN_SIZE) {
+                return false;
+            }
+
+            for (int y = 0; y < ATTACK_PATTERN_SIZE; y ++) {
+                if ((x == 3 && y == 3) || Math.abs(x-3) + Math.abs(y-3) > 3) {
+                    // this position should not have any attack or terrain creation set
+                    if (attackPattern[x][y] > 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Helper method to indicate if a {@code terrainPattern} is valid.
+     * @param terrainPattern 2D array of integers representing an attack pattern.
+     * @return True if {@code terrainPattern} is valid, false otherwise.
+     */
+    public boolean isTerrainPatternValid(boolean[][] terrainPattern){
+        for (int x = 0; x < ATTACK_PATTERN_SIZE; x++) {
+            if (terrainPattern[x].length != ATTACK_PATTERN_SIZE) {
+                return false;
+            }
+
+            for (int y = 0; y < ATTACK_PATTERN_SIZE; y ++) {
+                if ((x == 3 && y == 3) || Math.abs(x-3) + Math.abs(y-3) > 3) {
+                    // this position should not have any attack or terrain creation set
+                    if (terrainPattern[x][y]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     /**
