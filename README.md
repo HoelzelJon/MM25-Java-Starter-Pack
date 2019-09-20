@@ -43,8 +43,9 @@ Here's all the code you need to get started with making a bot for MechMania in J
     * Write your code in the `doTurn` method.
     * You may also add other files or dependencies. If you have any questions about this, we're here to help!
 
-3. **IMPORTANT**: Run `mvn clean install` to build the file `target/Bot.jar`. This step should be completed whenever you want to run _any_ `mm` commands with a new strategy.
-
+```dif
+**IMPORTANT**: Run `mvn clean install` after any changes made to your Java code in order to build the file `target/Bot.jar`. This step should be completed whenever you want to run _any_ `mm` commands with a new strategy.
+```
 4. Run `mm play .`
     * This will build the bot in the given directory (`.`) and then starts a game in which your bot fights against itself.
     * On Windows, if an `mm play` command fails, make sure to close any Java SE Runtime Binary processes with Task Manager.
