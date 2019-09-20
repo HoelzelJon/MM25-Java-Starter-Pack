@@ -416,10 +416,6 @@ public class GameState {
         return tiles;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
-
     public List<Unit> getUnits() {
         return units;
     }

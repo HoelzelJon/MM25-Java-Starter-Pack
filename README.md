@@ -28,6 +28,6 @@ Use `mm help` for more information!
 # Game_API Information
 Within the package `mech.mania.API`, there are a variety of helpful functions for writing your bot. You can use the `GameState` object to run any of these functions.
 
-Within the `mech.mania.API` package, a few other classes are defined.  We recommend only accessing the fields in these classes, since changing them might cause the `GameState` object to not properly represent the current state of the game.
+The `mech.mania.API` package has a few other classes as well.  We recommend only accessing the fields in these classes, since changing them might cause the `GameState` object to not properly represent the current state of the game.
 
 See the [documentation](https://hoelzeljon.github.io/MM25-Java-Starter-Pack/) for detailed descriptions of all defined classes and all available funcitons.
