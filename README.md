@@ -44,7 +44,7 @@ Here's all the code you need to get started with making a bot for MechMania in J
     * You may also add other files or dependencies. If you have any questions about this, we're here to help!
 
 ```dif
-**IMPORTANT**: Run `mvn clean install` after any changes made to your Java code in order to build the file `target/Bot.jar`. This step should be completed whenever you want to run _any_ `mm` commands with a new strategy.
+- IMPORTANT: Run `mvn clean install` after any changes made to your Java code in order to build the file `target/Bot.jar`. This step should be completed whenever you want to run _any_ `mm` commands with a new strategy.
 ```
 4. Run `mm play .`
     * This will build the bot in the given directory (`.`) and then starts a game in which your bot fights against itself.
