@@ -37,22 +37,24 @@ public class GameState {
      * @param start The {@link Position} to start from.
      * @param end The desired end {@link Position}.
      * @param tilesToAvoid An array of {@link Position}s to avoid in the path.
-     * @return An array of {@link Direction} objects indicating the path from start to end.
+     * @return An ArrayList of {@link Direction} objects indicating the path from start to end.
+     * Returns null if it is not possible to get to {@code end} from {@code start}.
      */
-    public Direction[] pathTo(Position start, Position end, Position[] tilesToAvoid){
-        Queue<Pair<Position, Direction[]>> q = new LinkedList<>();
-        Direction[] init_directions = new Direction[0];
+    public List<Direction> pathTo(Position start, Position end, Position[] tilesToAvoid){
+        Queue<Pair<Position, List<Direction>>> q = new LinkedList<>();
+        List<Direction> init_directions = new ArrayList<>();
         q.add(new Pair<>(start, init_directions));
         Boolean[][] visited = new Boolean[tiles.length][tiles[0].length];
-        for(int i = 0; i < visited.length; i++){
-            for(int j = 0; j < visited[i].length; j++){
+        for(int i = 0; i<visited.length; i++){
+            for(int j = 0; j<visited[i].length; j++){
                 visited[i][j] = false;
             }
         }
+
         while(!q.isEmpty()){
-            Pair<Position, Direction[]> pair = q.remove();
+            Pair<Position, List<Direction>> pair = q.remove();
             Position position = pair.getFirst();
-            Direction[] directions = pair.getSecond();
+            List<Direction> directions = pair.getSecond();
             if(visited[position.x][position.y]){
                 continue;
             }
@@ -63,35 +65,31 @@ public class GameState {
                 return directions;
             }
             Position left = new Position(position.x - 1, position.y);
-            if(!((left.x < 0) || (shouldAvoid(left, tilesToAvoid)) ||
+            if(!((left.x < 0) || (shouldAvoid(left, tilesToAvoid)) || visited[left.x][left.y] ||
                     getTiles()[left.x][left.y].getType() != Tile.Type.BLANK)){
-                Direction[] left_directions = new Direction[directions.length + 1];
-                System.arraycopy(directions, 0, left_directions, 0, directions.length);
-                left_directions[left_directions.length - 1] = Direction.LEFT;
+                List<Direction> left_directions = new ArrayList<>(directions);
+                left_directions.add(Direction.LEFT);
                 q.add(new Pair<>(left, left_directions));
             }
             Position right = new Position(position.x + 1, position.y);
-            if(!((right.x >= getTiles().length) || (shouldAvoid(right, tilesToAvoid)) ||
+            if(!((right.x >= getTiles().length) || (shouldAvoid(right, tilesToAvoid)) || visited[right.x][right.y] ||
                     getTiles()[right.x][right.y].getType() != Tile.Type.BLANK)){
-                Direction[] right_directions = new Direction[directions.length + 1];
-                System.arraycopy(directions, 0, right_directions, 0, directions.length);
-                right_directions[right_directions.length - 1] = Direction.RIGHT;
+                List<Direction> right_directions = new ArrayList<>(directions);
+                right_directions.add(Direction.RIGHT);
                 q.add(new Pair<>(right, right_directions));
             }
             Position down = new Position(position.x, position.y - 1);
-            if(!((down.y >= getTiles()[0].length) || (shouldAvoid(down, tilesToAvoid)) ||
+            if(!((down.y < 0) || (shouldAvoid(down, tilesToAvoid)) || visited[down.x][down.y] ||
                     getTiles()[down.x][down.y].getType() != Tile.Type.BLANK)){
-                Direction[] down_directions = new Direction[directions.length + 1];
-                System.arraycopy(directions, 0, down_directions, 0, directions.length);
-                down_directions[down_directions.length - 1] = Direction.DOWN;
+                List<Direction> down_directions = new ArrayList<>(directions);
+                down_directions.add(Direction.DOWN);
                 q.add(new Pair<>(down, down_directions));
             }
-            Position up = new Position(position.x - 1, position.y);
-            if(!((up.y < 0) || (shouldAvoid(up, tilesToAvoid)) ||
-                    getTiles()[up.x][up.y].getType() != Tile.Type.BLANK)){
-                Direction[] up_directions = new Direction[directions.length + 1];
-                System.arraycopy(directions, 0, up_directions, 0, directions.length);
-                up_directions[up_directions.length - 1] = Direction.UP;
+            Position up = new Position(position.x, position.y + 1);
+            if (!((up.y >= getTiles()[0].length) || (shouldAvoid(up, tilesToAvoid)) || visited[up.x][up.y] ||
+                    getTiles()[up.x][up.y].getType() != Tile.Type.BLANK)) {
+                List<Direction> up_directions = new ArrayList<>(directions);
+                up_directions.add(Direction.UP);
                 q.add(new Pair<>(up, up_directions));
             }
         }
@@ -103,7 +101,7 @@ public class GameState {
      * with {@code tilesToAvoid} defaulted to an empty array.
      * @see GameState#pathTo(Position, Position, Position[])
      */
-    public Direction[] pathTo(Position start, Position end){
+    public List<Direction> pathTo(Position start, Position end){
         Position[] tilesToAvoid = new Position[0];
         return pathTo(start, end, tilesToAvoid);
     }

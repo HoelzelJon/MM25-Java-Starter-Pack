@@ -41,11 +41,11 @@ public class Strategy {
         // Default values
         int[][] attackPattern = {
                 {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 1, 2, 1, 0, 0},
+                {0, 1, 1, 0, 1, 1, 0},
+                {0, 0, 1, 2, 1, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0}
         };
         boolean[][] terrainPattern = {
@@ -58,7 +58,7 @@ public class Strategy {
                 {false, false, false, false, false, false, false}
         };
         int health = 4;
-        int speed = 1;
+        int speed = 4;
 
         UnitSetup unit1;
         UnitSetup unit2;
@@ -91,16 +91,78 @@ public class Strategy {
     public Decision[] doTurn(GameState gameState){
         int playerNum = gameState.getPlayerNum();
         List<Unit> myUnits = gameState.getPlayerUnits(playerNum);
+        List<Unit> enemyUnits = gameState.getPlayerUnits(playerNum == 1 ? 2 : 1);
 
         // Default values
         Decision[] turnResponse = new Decision[myUnits.size()];
         for(int u = 0; u < myUnits.size(); u++) {
             int priority = u + 1;
             Direction[] movementSteps = new Direction[myUnits.get(u).getSpeed()];
-            for (int s = 0; s < movementSteps.length; s++) {
-                movementSteps[s] = Direction.DOWN;
+            // Find nearest enemy unit
+            int minDist = 0;
+            List<Direction> closestPath = null;
+            for(Unit enemyUnit : enemyUnits){
+                List<Direction> path = gameState.pathTo(myUnits.get(u).getPos(), enemyUnit.getPos());
+                if(path == null){
+                    continue;
+                }
+                if(path.size() <= minDist){
+                    minDist = path.size();
+                    closestPath = new ArrayList<>(path);
+                }
             }
-            Direction attackDirection = Direction.DOWN;
+
+            // Set defaults if pathTo failed
+            for (int s = 0; s < movementSteps.length; s++) {
+                // move randomly
+                int r = (int)(Math.random()*5);
+                switch(r) {
+                    case 0:
+                        movementSteps[s] = Direction.UP;
+                        break;
+                    case 1:
+                        movementSteps[s] = Direction.DOWN;
+                        break;
+                    case 2:
+                        movementSteps[s] = Direction.LEFT;
+                        break;
+                    case 3:
+                        movementSteps[s] = Direction.RIGHT;
+                        break;
+                    default:
+                        movementSteps[s] = Direction.STAY;
+                        break;
+                }
+            }
+            // Attack if would damage walls
+            Direction attackDirection = Direction.STAY;
+            List<Pair<Position, Integer>> posOfAttack = gameState.getPositionsOfAttackPattern(myUnits.get(u).getId(), Direction.UP);
+            for(Pair p : posOfAttack){
+                Position pos = (Position)p.getFirst();
+                try {
+                    if (gameState.getTiles()[pos.x][pos.y].getType() != Tile.Type.BLANK) {
+                        attackDirection = Direction.UP;
+                        break;
+                    }
+                } catch(ArrayIndexOutOfBoundsException e){
+                    continue;
+                }
+            }
+
+            // Overwrite if closestPath is not null
+            if(closestPath != null) {
+                // Move toward closest bot
+                for (int s = 0; s < movementSteps.length; s++) {
+                    if (closestPath.size() > s) {
+                        movementSteps[s] = closestPath.get(s);
+                    }
+                }
+
+                // Attack if you would be within 1 tile of your target
+                if (movementSteps.length >= closestPath.size() - 1) {
+                    attackDirection = Direction.UP;
+                }
+            }
             turnResponse[u] = new Decision(priority, movementSteps, attackDirection, myUnits.get(u).getId());
         }
 

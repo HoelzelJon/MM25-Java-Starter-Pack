@@ -10,7 +10,7 @@ public class Tile {
     private Type type; // the type of tile this is (see Type enum below)
     private int hp; // health of this tile (only important for DESTRUCTIBLE type)
 
-    enum Type {
+    public enum Type {
         BLANK, // blank tile -- nothing is on it (except maybe a unit)
         DESTRUCTIBLE, // destructible terrain -- becomes BLANK after hp is reduced to or below 0
         // units cannot be on DESTRUCTIBLE-type tiles
