@@ -8,9 +8,9 @@ Here's all the code you need to get started with making a bot for MechMania in J
 # Pre-Setup
 
 1. First, install Java. To do this, see [this guide](https://docs.oracle.com/en/java/javase/13/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A) for help.
-        * Advice for Windows users:
-            * Make sure to set the `JAVA_HOME` variable as a SYSTEM environment variable, rather than a user environment variable.
-            * Make sure to NOT have `bin` at the end of your `JAVA_HOME` environment variable.
+    * Advice for Windows users:
+        * Make sure to set the `JAVA_HOME` variable as a SYSTEM environment variable, rather than a user environment variable.
+        * Make sure to NOT have `bin` at the end of your `JAVA_HOME` environment variable.
     * Check that the `JAVA_HOME` environment variable is set correctly.
         * For Windows, you can run `echo %JAVA_HOME%`. You should see a result similar to `C:\Program Files\Java\jdk1.8.0_171`. Note that this does NOT end with `\bin`.
         * For Mac users, you can run `echo $JAVA_HOME`. You should see a result similar to `/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home`.
@@ -43,6 +43,7 @@ Here's all the code you need to get started with making a bot for MechMania in J
 
 4. Run `mm play .`
     * This will build the bot in the given directory (`.`) and then starts a game in which your bot fights against itself.
+    * On Windows, if an `mm play` command fails, make sure to close any Java SE Runtime Binary processes with Task Manager.
 5. To run two different bots against each other, run `mm play bot1_directory bot2_directory`.
 6. To submit your bot, run `mm push .`
 
