@@ -115,8 +115,8 @@ public class Strategy {
             // Set defaults if pathTo failed
             for (int s = 0; s < movementSteps.length; s++) {
                 // move randomly
-                int r = (int)(Math.random()*5);
-                switch(r) {
+                int r = (int) (Math.random() * 5);
+                switch (r) {
                     case 0:
                         movementSteps[s] = Direction.UP;
                         break;
@@ -134,13 +134,28 @@ public class Strategy {
                         break;
                 }
             }
-            // Attack if would damage walls
+
+            // If possible, head to hard-coded locations to break through walls
+            if (closestPath == null){
+                // Go to (5, 3) if possible
+                closestPath = gameState.pathTo(myUnits.get(u).getPos(), new Position(5, 3));
+                if (closestPath == null){
+                    // If (5, 3) was blocked, got to (4, 4)
+                    closestPath = gameState.pathTo(myUnits.get(u).getPos(), new Position(4, 4));
+                }
+            }
+
+            // Attack if would damage walls or an enemy unit
             Direction attackDirection = Direction.STAY;
-            List<Pair<Position, Integer>> posOfAttack = gameState.getPositionsOfAttackPattern(myUnits.get(u).getId(), Direction.UP);
+            List<Pair<Position, Integer>> posOfAttack =
+                    gameState.getPositionsOfAttackPattern(
+                            gameState.getPositionAfterMovement(myUnits.get(u).getPos(), movementSteps),
+                            myUnits.get(u).getAttack(), Direction.UP);
             for(Pair p : posOfAttack){
                 Position pos = (Position)p.getFirst();
                 try {
-                    if (gameState.getTiles()[pos.x][pos.y].getType() != Tile.Type.BLANK) {
+                    Tile t = gameState.getTiles()[pos.x][pos.y];
+                    if (t.getType() != Tile.Type.BLANK || (t.getUnit() != null && t.getUnit().getPlayerNum() != playerNum)) {
                         attackDirection = Direction.UP;
                         break;
                     }
@@ -148,20 +163,16 @@ public class Strategy {
                     continue;
                 }
             }
-
-            // Overwrite if closestPath is not null
-            if(closestPath != null) {
-                // Move toward closest bot
-                for (int s = 0; s < movementSteps.length; s++) {
-                    if (closestPath.size() > s) {
-                        movementSteps[s] = closestPath.get(s);
-                    }
+            // Move toward closest bot
+            for (int s = 0; s < movementSteps.length; s++) {
+                if (closestPath.size() > s) {
+                    movementSteps[s] = closestPath.get(s);
                 }
+            }
 
-                // Attack if you would be within 1 tile of your target
-                if (movementSteps.length >= closestPath.size() - 1) {
-                    attackDirection = Direction.UP;
-                }
+            // Attack if you would be within 1 tile of your target
+            if (movementSteps.length >= closestPath.size() - 1) {
+                attackDirection = Direction.UP;
             }
             turnResponse[u] = new Decision(priority, movementSteps, attackDirection, myUnits.get(u).getId());
         }
