@@ -26,7 +26,7 @@ Here's all the code you need to get started with making a bot for MechMania in J
     * Install Maven from [here](https://maven.apache.org/download.cgi). We recommend using the binary zip archive.
         * Extract the zip archive to any directory
         * Add the `bin` directory of the created directory to the PATH environment variable.
-            * For Windows, you can edit environment variables by searching "edit environment variables" in the start menu or by going to Control Panel -> System and Security -> System -> Advanced System Settings ->  Environment Variables (bottom left).
+            * For Windows, you can edit environment variables by searching "edit environment variables" in the start menu or by going to Control Panel -> System and Security -> System -> Advanced System Settings ->  Environment Variables (bottom right).
             
                 Find `Path` in the System Variables list (bottom list) and double click on it. Select `New` and paste in the `bin` directory of the your maven installation. Press OK until you are out of the menus.
             * For Mac users, run `export PATH=/opt/apache-maven-<version>/bin:$PATH`, replacing `<version>` so that the command refers to the correct directory.
