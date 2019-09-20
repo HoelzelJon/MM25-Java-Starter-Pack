@@ -99,4 +99,5 @@ class GameInit{
 /** A helper class for the /game_over end point **/
 class GameOver{
     String gameId;
+    String result; // Will be "TIE", "WIN", or "LOSE"
 }
