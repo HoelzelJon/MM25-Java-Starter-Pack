@@ -36,10 +36,12 @@ Here's all the code you need to get started with making a bot for MechMania in J
 # Setup
 
 1. Clone this repo (or fork it or download it somewhere as a ZIP)
+
 2. Modify the script at `Strategy.java`.
     * Write your code in the `doTurn` method.
     * You may also add other files or dependencies. If you have any questions about this, we're here to help!
-3. Run `mvn clean install` to build the file `target/Bot.jar`. This step should be completed whenever you want to run any `mm` commands with a new strategy.
+
+3. **IMPORTANT**: Run `mvn clean install` to build the file `target/Bot.jar`. This step should be completed whenever you want to run _any_ `mm` commands with a new strategy.
 
 4. Run `mm play .`
     * This will build the bot in the given directory (`.`) and then starts a game in which your bot fights against itself.
