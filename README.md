@@ -13,7 +13,7 @@ Here's all the code you need to get started with making a bot for MechMania in J
         * Make sure to NOT have `bin` at the end of your `JAVA_HOME` environment variable.
     * Check that the `JAVA_HOME` environment variable is set correctly.
         * For Windows, you can run `echo %JAVA_HOME%`. You should see a result similar to `C:\Program Files\Java\jdk1.8.0_171`. Note that this does NOT end with `\bin`.
-        * For Mac users, you can run `echo $JAVA_HOME`. You should see a result similar to `/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home`.
+        * For Mac and Linux users, you can run `echo $JAVA_HOME`. You should see a result similar to `/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home`.
         
 2. Install Node. To do this, go [here](https://nodejs.org/en/download/) and download the appropriate installer for your operating system.
     * Run the installer with all the defaults.
