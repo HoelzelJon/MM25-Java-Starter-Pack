@@ -2,27 +2,14 @@
 
 Here's all the code you need to get started with making a bot for MechMania in Java. Just do these steps:
 
-* Pre-Setup -- install Node and the `mm` command line tools
+* Pre-Setup -- install Java, Node and the `mm` command line tools
 * Setup -- Clone this repository and start running your bot!
 
 # Pre-Setup
 
-1. First, install Java. To do this, see [this guide](https://docs.oracle.com/en/java/javase/13/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A) for help.
-    * Advice for Windows users:
-        * Make sure to set the `JAVA_HOME` variable as a SYSTEM environment variable, rather than a user environment variable.
-        * Make sure to NOT have `bin` at the end of your `JAVA_HOME` environment variable.
-    * Check that the `JAVA_HOME` environment variable is set correctly.
-        * For Windows, you can run `echo %JAVA_HOME%`. You should see a result similar to `C:\Program Files\Java\jdk1.8.0_171`. Note that this does NOT end with `\bin`.
-        * For Mac and Linux users, you can run `echo $JAVA_HOME`. You should see a result similar to `/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home`.
-        
-2. Install Node. To do this, go [here](https://nodejs.org/en/download/) and download the appropriate installer for your operating system.
-    * Run the installer with all the defaults.
+1. Install Java, Node, and the `mm` tools with the instructions on the [main wiki](https://github.com/HoelzelJon/MechMania-25-Wiki/wiki#pre-setup). 
 
-3. Run `npm install -g mechmania`.  This gets the `mm` command line tools, which are used to run the game, test and submit bots for the tournament.
-
-4. Run `mm download` to download required files.
-
-5. For the Java starter pack, you will have to set up Maven.
+2. For the Java starter pack, you will have to set up Maven.
     * Install Maven from [here](https://maven.apache.org/download.cgi). We recommend using the binary zip archive.
         * Extract the zip archive to any directory
         * Add the `bin` directory of the created directory to the PATH environment variable.
