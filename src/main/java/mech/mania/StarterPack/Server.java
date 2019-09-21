@@ -64,7 +64,7 @@ public class Server {
     }
 
     /**
-     * Method to handle POST requests to the /health endpoint to check that the server is running correctly.
+     * Method to handle GET requests to the /health endpoint to check that the server is running correctly.
      * @return "200"
      */
     @RequestMapping(value = "/health" , method = RequestMethod.GET)
